@@ -24,6 +24,7 @@ async function load() {
   await connectPubsub();
   tryReconnect();
   start();
+  subscriberChannels();
 }
 
 async function connectRedisDB() {
@@ -43,6 +44,11 @@ async function connectPubsub() {
   global.subscriber = await subscriber.connectPubsub();
   startListener();
   startPollar();
+}
+
+function subscriberChannels() {
+  global.subscriber.subscribe(config.channelCreated);
+  global.subscriber.subscribe(config.channelDeleted);
 }
 
 function tryReconnect() {

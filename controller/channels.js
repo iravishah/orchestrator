@@ -30,11 +30,8 @@ async function createChannel(req, res, next) {
   if (err || !data) {
     return reply(res, m102);
   }
-  next();
-}
 
-async function listenChannel(req, res, next) {
-  global.subscriber.subscribe(req.channel);
+  global.publisher.publish(config.channelCreated, req.channel);
   res.status(200).json({ result: 'success' });
 }
 
@@ -45,7 +42,7 @@ async function removeChannel(req, res, next) {
   if (err) {
     return reply(res, m102);
   }
-  global.subscriber.unsubscribe(channel);
+  global.publisher.publish(config.channelDeleted, channel);
   if (data) {
     return res.status(200).json({ result: 'success' });
   }
@@ -55,6 +52,5 @@ async function removeChannel(req, res, next) {
 module.exports = {
   checkIfChannelExists,
   createChannel,
-  listenChannel,
   removeChannel
 }

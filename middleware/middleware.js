@@ -17,7 +17,17 @@ async function startListener() {
       return;
     }
 
-    if(typeof message === 'object') {
+    if (channel === config.channelDeleted) {
+      global.subscriber.unsubscribe(message);
+      return;
+    }
+
+    if (channel === config.channelCreated) {
+      global.subscriber.subscribe(message);
+      return;
+    }
+
+    if (typeof message === 'object') {
       message = JSON.stringify(message);
     }
 
