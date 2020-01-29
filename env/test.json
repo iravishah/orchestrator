@@ -1,0 +1,25 @@
+{
+  "port": 8080,
+  "logFile": "./logs/app.log",
+  "mongo": {
+    "replicas": [
+      "localhost:27017"
+    ],
+    "database": "expressapi",
+    "username": "admin",
+    "password": "root",
+    "options": {
+      "socketTimeoutMS": 0,
+      "autoReconnect": true,
+      "keepAlive": true,
+      "reconnectInterval": 1000,
+      "bufferMaxEntries": 0,
+      "readPreference": "secondaryPreferred",
+      "poolSize": 8,
+      "w": "majority",
+      "connectTimeoutMS": 20000,
+      "useNewUrlParser": true
+    }
+  },
+  "adminKey": "test"
+}

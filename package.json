@@ -1,0 +1,30 @@
+{
+  "name": "orchestrator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iravishah/orchestrator.git"
+  },
+  "author": "Ravi Shah",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iravishah/orchestrator/issues"
+  },
+  "homepage": "https://github.com/iravishah/orchestrator#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "helmet": "^3.21.2",
+    "lodash": "^4.17.15",
+    "redis": "^2.8.0",
+    "validate": "^3.1.0",
+    "validator": "^3.1.0",
+    "winston": "^3.2.1"
+  }
+}
