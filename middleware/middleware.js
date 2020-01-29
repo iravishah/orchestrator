@@ -1,4 +1,4 @@
-const { getMembers, zrange, zincrby, sadd, spop } = require('../db/redis_utils');
+const { getMembers, sadd, spop } = require('../db/redis_utils');
 
 const config = global.config;
 
@@ -17,6 +17,10 @@ async function startListener() {
       return;
     }
 
+    if(typeof message === 'object') {
+      message = JSON.stringify(message);
+    }
+
     sadd(config.uniqueMessage, message);
   });
 }
@@ -29,31 +33,13 @@ async function startPollar() {
       return e;
     }
     if (message && message.length) {
-      callback(message);
+      callback(message[0]);
     }
   }, 1000);
 }
 
 async function callback(message) {
-  if (typeof message === 'string') {
-    try {
-      message = JSON.parse(message);
-    } catch (e) { };
-  }
-  let [err, instanceId] = await zrange(config.intHash);
-  if (err) {
-    return;
-  }
-
-  instanceId = instanceId[0];
-
-  zincrby(config.intHash, instanceId);
-
-  const msg = {
-    instanceId,
-    data: message
-  }
-  global.publisher.publish(config.dbWriterChannel, JSON.stringify(msg));
+  global.publisher.publish(config.dbWriterChannel, message);
 }
 
 module.exports = {
