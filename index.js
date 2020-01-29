@@ -14,8 +14,6 @@ const Redis = require('./db/redis_connect');
 
 const { startListener, reconnectChannels, startPollar } = require('./middleware/middleware');
 
-const { checkPulse } = require('./cron/cron');
-
 app.use(helmet());
 app.use(bodyParser.urlencoded({ limit: '5mb', extended: true }));
 app.use(bodyParser.json({ limit: '5mb' }));
@@ -26,7 +24,6 @@ async function load() {
   await connectPubsub();
   tryReconnect();
   start();
-  checkPulse();
 }
 
 async function connectRedisDB() {
