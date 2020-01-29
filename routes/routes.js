@@ -19,8 +19,7 @@ module.exports = () => {
     utility.authenicate,
     utility.validateBody(channelPostBody),
     channel.checkIfChannelExists,
-    channel.createChannel,
-    channel.listenChannel
+    channel.createChannel
   );
 
   router.delete('/api/v1/stop-listening/:channel',

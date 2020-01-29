@@ -17,6 +17,16 @@ async function startListener() {
       return;
     }
 
+    if (channel === config.channelDeleted) {
+      global.subscriber.unsubscribe(message);
+      return;
+    }
+
+    if (channel === config.channelCreated) {
+      global.subscriber.subscribe(message);
+      return;
+    }
+
     sadd(config.uniqueMessage, message);
   });
 }
@@ -29,7 +39,7 @@ async function startPollar() {
       return e;
     }
     if (message && message.length) {
-      callback(message);
+      callback(message[0]);
     }
   }, 1000);
 }
